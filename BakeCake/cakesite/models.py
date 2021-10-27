@@ -3,7 +3,7 @@ from django.core.validators import MinValueValidator
 from django.db import models
 from django.db.models.deletion import CASCADE
 from django.db.models.fields import BooleanField, CharField, IntegerField, TextField, DateTimeField
-from django.db.models.fields.related import ForeignKey
+from django.db.models.fields.related import ForeignKey, ManyToManyField
 from phonenumber_field.modelfields import PhoneNumberField
 
 
@@ -97,7 +97,7 @@ class Product(models.Model):
         (CUPCAKE, 'Капкейк'),
         (MUFFIN, 'Маффин')
     ]
-    component = models.ManyToManyField(
+    component = ManyToManyField(
         Component,
         verbose_name='Компонент',
         related_name='product',
@@ -128,6 +128,21 @@ class Product(models.Model):
 
 
 class Order(models.Model):
+    COMPLETED = 'CM'
+    BAKING_NOW= 'BN'
+    IN_DELIVERING = 'ID'
+    NOT_PROCESSED = "NP"
+    STATUSES_OF_ORDER = [
+        (NOT_PROCESSED, 'Заказ обрабатывается'),
+        (BAKING_NOW, 'Заказ готовится!'),
+        (IN_DELIVERING, 'Заказ в дороге'),
+        (COMPLETED, 'Заказ завершён!')
+    ]
+    products = ManyToManyField(
+        Product,
+        related_name='order',
+        verbose_name='Продукт'
+    )
     customer = ForeignKey(
         CustomUser,
         on_delete=CASCADE,
@@ -137,11 +152,7 @@ class Order(models.Model):
     delivery_date = DateTimeField(
         verbose_name='Дата доставки',
         blank=True,
-        null=True)
-
-    is_ordered = BooleanField(
-        verbose_name='Заказ сделан',
-        default=False
+        null=True
     )
     date_ordered = DateTimeField(
         verbose_name='Дата создания заказа',
@@ -150,13 +161,20 @@ class Order(models.Model):
     comment = TextField(
         max_length=500,
         verbose_name='Комментарий к заказу',
-        null=True
+        blank=True
     )
     promo_code = CharField(
         max_length=15,
         verbose_name='Промокод',
-        null=True
+        blank=True
     )
+    status = CharField(
+        'статус заказа',
+        max_length=2,
+        choices=STATUSES_OF_ORDER,
+        default=NOT_PROCESSED
+    )
+
 
     class Meta:
         verbose_name = 'Заказ'
