@@ -19,7 +19,6 @@ class Component(models.Model):
         (TOPPING, 'Топпинг'),
         (BERRIES, 'Ягоды'),
         (DECORATION, 'Декор'),
-
     ]
     name = CharField(
         'название',
@@ -78,7 +77,8 @@ class CustomUser(AbstractUser):
         max_length=50,
         verbose_name='Ссылка на соцсеть',
         null=True,
-        blank=True)
+        blank=True
+    )
     consent_with_pd = BooleanField(
         'Согласие на обработку персональных данных',
         default=False,
@@ -92,54 +92,53 @@ class CustomUser(AbstractUser):
         verbose_name_plural = 'Пользователи'
 
 
-class Order(models.Model):
-    # добавить вид заказа: торт, капкейп и т.п. Но пока работаем только с тортом для МВП
+# class Product(models.Model):
+#     'Продукт'
+#     component = models.ManyToManyField(Component)
 
+
+
+class Order(models.Model):
     customer = ForeignKey(
         CustomUser,
         on_delete=CASCADE,
         related_name='orders',
         verbose_name='Заказчик'
     )
-
     lettering = TextField(
         max_length=100,
         verbose_name='Надпись',
         help_text='Мы можем разместить на торте любую надпись, например: «С днем рождения!»',
         null=True
     )
-
     delivery_date = DateTimeField(
         verbose_name='Дата доставки',
         blank=True,
-        auto_now=True
+        
     )
-
     delivery_time = DateTimeField(
         verbose_name='Время доставки',
         blank=True,
         auto_now=True
     )
-
     is_ordered = BooleanField(
         verbose_name='Заказ сделан',
         default=False
     )
-
     date_ordered = DateTimeField(
         verbose_name='Дата создания заказа',
         null=True
     )
-
     comment = TextField(
         max_length=500,
         verbose_name='Комментарий к заказу',
-        null=True)
-
+        null=True
+    )
     promo_code = CharField(
         max_length=15,
         verbose_name='Промокод',
-        null=True)
+        null=True
+    )
 
     class Meta:
         verbose_name = 'Заказ'
