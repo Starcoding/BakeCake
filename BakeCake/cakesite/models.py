@@ -42,7 +42,7 @@ class Component(models.Model):
     )
 
     def __str__(self):
-        return f'{self.name}{self.price}'
+        return f'{self.name} - {self.price} руб.'
 
     class Meta:
         verbose_name = 'Компонент'
@@ -81,16 +81,34 @@ class CustomUser(AbstractUser):
     )
 
     def __str__(self):
-        return f'{self.first_name}{self.second_name}'
+        return f'{self.first_name} {self.second_name}'
 
     class Meta:
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
 
 
-# class Product(models.Model):
-#     'Продукт'
-#     component = models.ManyToManyField(Component)
+class Product(models.Model):
+    component = models.ManyToManyField(
+        Component,
+        verbose_name='Компонент',
+        related_name='product',
+    )
+    lettering = TextField(
+        max_length=100,
+        verbose_name='Надпись',
+        help_text='Мы можем разместить на торте любую надпись, например: «С днем рождения!»',
+        null=True,
+    )
+    price=IntegerField(
+        'цена',
+        default=500
+    )
+    class Meta:
+        verbose_name = 'Продукт'
+        verbose_name_plural = 'Продукция'
+
+
 
 
 
@@ -100,12 +118,6 @@ class Order(models.Model):
         on_delete=CASCADE,
         related_name='orders',
         verbose_name='Заказчик'
-    )
-    lettering = TextField(
-        max_length=100,
-        verbose_name='Надпись',
-        help_text='Мы можем разместить на торте любую надпись, например: «С днем рождения!»',
-        null=True
     )
     delivery_date = DateTimeField(
         verbose_name='Дата доставки',
