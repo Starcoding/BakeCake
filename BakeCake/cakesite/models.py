@@ -36,7 +36,10 @@ class Component(models.Model):
         'Веганское блюдо',
         default=False
     )
-    contain_
+    contains_sugar = BooleanField(
+        'Содержит сахар',
+        default=False
+    )
     class Meta:
         verbose_name = 'Компонент'
         verbose_name_plural = 'Компоненты'
@@ -46,6 +49,7 @@ class CustomUser(AbstractUser):
     address = CharField(
         'адрес доставки',
         blank=True,
+        max_length=120
     )
     first_name = CharField(
         'Имя',
