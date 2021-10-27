@@ -63,14 +63,10 @@ class CustomUser(AbstractUser):
         'Фамилия',
         max_length=64,
     )
-    phone_number = CharField(
+    phone_number = PhoneNumberField(
         verbose_name='Номер телефона',
         max_length=20,
         help_text='+79991234567',
-        default=''
-    )
-    clear_phone_number = PhoneNumberField(
-        verbose_name='Нормализованный номер телефона',
         blank=True
     )
     social_id = CharField(
@@ -114,13 +110,8 @@ class Order(models.Model):
     delivery_date = DateTimeField(
         verbose_name='Дата доставки',
         blank=True,
-        
-    )
-    delivery_time = DateTimeField(
-        verbose_name='Время доставки',
-        blank=True,
-        auto_now=True
-    )
+        null=True)
+
     is_ordered = BooleanField(
         verbose_name='Заказ сделан',
         default=False
