@@ -149,6 +149,16 @@ class Order(models.Model):
         related_name='orders',
         verbose_name='Заказчик'
     )
+    address = CharField(
+        'адрес доставки',
+        max_length=120
+    )
+    phone_number = PhoneNumberField(
+        verbose_name='Номер телефона',
+        max_length=20,
+        help_text='+79991234567',
+        blank=True
+    )
     delivery_date = DateTimeField(
         verbose_name='Дата доставки',
         blank=True,
@@ -175,6 +185,8 @@ class Order(models.Model):
         default=NOT_PROCESSED
     )
 
+    def __str__(self):
+        return f'{self.customer} {self.address} {self.delivery_date}'
 
     class Meta:
         verbose_name = 'Заказ'
