@@ -89,6 +89,14 @@ class CustomUser(AbstractUser):
 
 
 class Product(models.Model):
+    CAKE = 'CK'
+    CUPCAKE = 'CC'
+    MUFFIN = 'MF'
+    CATEGORIES_OF_BAKERY = [
+        (CAKE, 'Торт'),
+        (CUPCAKE, 'Капкейк'),
+        (MUFFIN, 'Маффин')
+    ]
     component = models.ManyToManyField(
         Component,
         verbose_name='Компонент',
@@ -102,14 +110,21 @@ class Product(models.Model):
     )
     price=IntegerField(
         'цена',
-        default=500
+        validators=[MinValueValidator(0)]
     )
+    category = models.CharField(
+        'категория',
+        max_length=2,
+        choices=CATEGORIES_OF_BAKERY,
+        default=CAKE
+    )
+
+    def __str__(self):
+        return f'{self.get_category_display()} {self.price} руб.'
+
     class Meta:
         verbose_name = 'Продукт'
         verbose_name_plural = 'Продукция'
-
-
-
 
 
 class Order(models.Model):
