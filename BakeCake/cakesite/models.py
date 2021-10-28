@@ -132,11 +132,13 @@ class Order(models.Model):
     BAKING_NOW = 'BN'
     IN_DELIVERING = 'ID'
     NOT_PROCESSED = "NP"
+    CANCELLED = 'CD'
     STATUSES_OF_ORDER = [
         (NOT_PROCESSED, 'Заказ обрабатывается'),
         (BAKING_NOW, 'Заказ готовится!'),
         (IN_DELIVERING, 'Заказ в дороге'),
-        (COMPLETED, 'Заказ завершён!')
+        (COMPLETED, 'Заказ завершён!'),
+        (CANCELLED, 'Статус отменён!')
     ]
     products = ManyToManyField(
         Product,
@@ -156,8 +158,7 @@ class Order(models.Model):
     phone_number = PhoneNumberField(
         verbose_name='Номер телефона',
         max_length=20,
-        help_text='+79991234567',
-        blank=True
+        help_text='+79991234567'
     )
     delivery_date = DateTimeField(
         verbose_name='Дата доставки',
@@ -184,6 +185,8 @@ class Order(models.Model):
         choices=STATUSES_OF_ORDER,
         default=NOT_PROCESSED
     )
+
+
 
     def __str__(self):
         return f'{self.customer} {self.address} {self.delivery_date}'

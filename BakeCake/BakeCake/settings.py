@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'cakesite',
+    'import_export',
 ]
 
 MIDDLEWARE = [
