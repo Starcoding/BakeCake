@@ -108,7 +108,7 @@ class Product(models.Model):
         help_text='Мы можем разместить на торте любую надпись, например: «С днем рождения!»',
         null=True,
     )
-    price=IntegerField(
+    price = IntegerField(
         'цена',
         validators=[MinValueValidator(0)]
     )
@@ -129,7 +129,7 @@ class Product(models.Model):
 
 class Order(models.Model):
     COMPLETED = 'CM'
-    BAKING_NOW= 'BN'
+    BAKING_NOW = 'BN'
     IN_DELIVERING = 'ID'
     NOT_PROCESSED = "NP"
     STATUSES_OF_ORDER = [
