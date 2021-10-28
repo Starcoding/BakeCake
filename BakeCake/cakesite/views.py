@@ -20,3 +20,7 @@ def get_signup(request):
 
 def make_account(request):
     return render(request, 'signin.html')
+
+
+def show_checkout(request):
+    return render(request, 'checkout.html')

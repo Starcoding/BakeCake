@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    <title>Завершение заказа</title>
+{% endblock %}
+{% block content %}
+
+
+    <section>
+        <div class="row">
+            <div class="col-md-8 mb-4">
+                <div class="card mb-4">
+                    <div class="card-header py-3">
+                        <h5 class="mb-0">Детали заказа</h5>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="row mb-4">
+                                <div class="col">
+                                    <div class="form-outline">
+                                        <li class="list-group-item">Имя</li>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-outline">
+                                        <li class="list-group-item">Фамилия</li>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-outline mb-4">
+                                <input type="text" id="form6Example4" class="form-control" placeholder="Ввведите новый адрес доставки"/>
+                                <label class="form-label" for="form6Example4" >По умолчанию будет использован адрес доставки, указанный при регистрации</label>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <li class="list-group-item">Ссылка на соцсеть</li>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <li class="list-group-item">Номер телефона</li>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <textarea class="form-control" id="form6Example7" rows="4"></textarea>
+                                <label class="form-label" for="form6Example7">Комментарий к заказу</label>
+                            </div>
+
+                            <div class="form-check d-flex justify-content-center mb-2">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card mb-4">
+                    <div class="card-header py-3">
+                        <h5 class="mb-0">Сумма заказа</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <input type="text" name="promocode" class="form-control" id="promo_code">
+                            <input type="submit" class="btn btn-warning pull-right" value="Применить промокод">
+
+                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                                <div>
+                                    <strong>Итоговая сумма</strong>
+                                </div>
+                                <span><strong>1000</strong></span>
+                            </li>
+                        </ul>
+
+                        <button type="button" class="btn btn-primary btn-lg btn-block">
+                            Сделать заказ
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
