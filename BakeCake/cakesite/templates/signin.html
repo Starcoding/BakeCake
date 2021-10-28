@@ -4,7 +4,7 @@
     <title>Личный кабинет</title>
 {% endblock %}
 {% block content %}
-    <div class="card text-white bg-dark mb-3" style="max-width: 80rem;">
+    <div class="card text-white bg-dark mb-3 mx-auto" style="max-width: 50rem;">
         <div class="card-header mx-auto mb-4">Для завершения заказа необходимо заполнить форму регистрации</div>
         <div class="card-body">
             <div class="mb-3">
@@ -31,10 +31,15 @@
                 <input class="form-control" id="InputAddress" aria-describedby="addressHelp"
                        placeholder="г.Москва, ул. Калинина, д.1" required>
             </div>
+            <div>
+                <p class="card-text mt-md-5 text-center mb-3">
+                    <a href="../../{% static 'pd-consent.pdf' %}" class="link-info">Скачать и прочитать Соглашение</a>
+                </p>
+            </div>
             <div class="col-12 mb-3">
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
-                    <label class="form-check-label" for="invalidCheck">Согласие на обработку ПД</label>
+                    <label class="form-check-label" for="invalidCheck">Согласие на обработку персональных данных</label>
                     <div class="invalid-feedback">
                         Вы должны согласиться на обработку ПД для завершения регистрации
                     </div>
