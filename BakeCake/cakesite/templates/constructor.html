@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    <title>Конструктор сайта</title>
+{% endblock %}
+{% block content %}
+{% if components %}
+    <div class="row justify-content-center">
+        <div class="col-lg-3">
+            <div class="card mb-3">
+                <h5 class="card-header border-secondary mx-auto">Конструктор торта</h5>
+                <form action="/create_cake" method="post">
+                {% csrf_token %}
+
+                <div class="m-2 text-center">
+                        Количество уровней (обязательно)
+                        <ul class="list-group">
+                        {% for component in components.levels %}
+                        <li class="list-group-item">
+                            <input type="radio" id="{{ component.id }}"
+                            name="levels" value="{{ component.id }}" required oninvalid="Пожалуйста, выберите количество уровней">
+                            <label for="{{ component.id }}">{{ component }}</label>
+                        </li>    
+                        {% endfor %}
+                        </ul>
+                </div>
+                <div class="m-2 text-center">
+                        Выбрать форму (обязательно)
+                        <ul class="list-group">
+                        {% for component in components.form %}
+                        <li class="list-group-item">
+                            <input type="radio" id="{{ component.id }}"
+                            name="form" value="{{ component.id }}" required oninvalid="Пожалуйста, выберите форму">
+                            <label for="{{ component.id }}">{{ component }}</label>
+                        </li>    
+                        {% endfor %}
+                        </ul>
+                </div>
+                <div class="m-2 text-center">
+                        Выбрать топпинг (обязательно)
+                        <ul class="list-group">
+                        {% for component in components.toppings %}
+                        <li class="list-group-item">
+                            <input type="radio" id="{{ component.id }}"
+                            name="toppings" value="{{ component.id }}" required oninvalid="Пожалуйста, выберите топпинг">
+                            <label for="{{ component.id }}">{{ component }}</label>
+                        </li>    
+                        {% endfor %}
+                        </ul>
+                </div>
+                <div class="m-2 text-center">
+                        Выбрать ягоды
+                        <ul class="list-group">
+                        {% for component in components.berries %}
+                        <li class="list-group-item">
+                            <input  type="checkbox" id="{{ component.id }}"
+                            name="berries" value="{{ component.id }}">
+                            <label for="{{ component.id }}">{{ component }}</label>
+                        </li>    
+                        {% endfor %}
+                        </ul>
+                </div>
+                <div class="m-2 text-center">
+                        Добавить декор
+                        <ul class="list-group">
+                        {% for component in components.decorations %}
+                        <li class="list-group-item">
+                            <input type="checkbox" id="{{ component.id }}"
+                            name="decorations" value="{{ component.id }}">
+                            <label for="{{ component.id }}">{{ component }}</label>
+                        </li>    
+                        {% endfor %}
+                        </ul>
+                </div>
+                <!-- <div class="form-check">
+                     <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked1">
+                     <label class="form-check-label" for="flexCheckChecked1">
+                         Без сахара
+                     </label>
+                 </div>
+                 <div class="form-check">
+                     <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked2">
+                     <label class="form-check-label" for="flexCheckChecked2">
+                         Подходит для веганов </label>
+                 </div> -->
+                <div class="m-2">
+                    <label class="form-label" for="FormControlTextarea"></label>
+                    <textarea name="lettering" class=" form-control" id="FormControlTextarea"
+                              placeholder="Ввведите надпись"></textarea>
+                    <small id="Help" class="form-text text-muted ">Мы можем разместить на торте любую надпись, например:
+                        «С днем рождения!»</small>
+
+                </div>
+                <div class="d-grid gap-2 col-6 mx-auto m-4">
+                    <input class="btn btn-success" value="Торт готов" type="submit">
+                </div>
+                <div><h5>Сумма заказа:</h5></div>
+                <div class="d-grid gap-2 col-6 mx-auto m-4">
+                    <a class="btn btn-primary" href="{% url 'checkout' %}" role="button">Начать оформление заказа</a>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endif %}
+{% endblock %}
